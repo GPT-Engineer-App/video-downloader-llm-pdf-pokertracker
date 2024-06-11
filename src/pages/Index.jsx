@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, VStack, Input, Button, Text, Spinner, Image } from "@chakra-ui/react";
+import Navigation from "../components/Navigation.jsx";
 import axios from "axios";
 
 const Index = () => {
@@ -39,6 +40,7 @@ const Index = () => {
 
   return (
     <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+      <Navigation />
       <VStack spacing={4}>
         <Text fontSize="2xl">PokerStars Hand History Compilation</Text>
         <Input placeholder="Enter video URL" value={videoUrl} onChange={(e) => setVideoUrl(e.target.value)} />
