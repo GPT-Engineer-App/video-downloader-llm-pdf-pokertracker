@@ -15,10 +15,9 @@ const Index = () => {
   const handleDownloadVideo = async () => {
     setLoading(true);
     try {
-      const response = await axios.post("/download_video", { video_url: videoUrl });
+      const response = await axios.post("/download_video", { video_url: videoUrl, resolution: "highest" });
       const videoPath = response.data.video_path;
       setVideoPath(videoPath);
-      setVideoDownloaded(true);
       const framesResponse = await axios.post("/extract_frames", { video_path: videoPath, interval: 1 });
       const frames = framesResponse.data.frames;
       const analysisResponse = await axios.post("/analyze_frames", { frames });
@@ -31,6 +30,7 @@ const Index = () => {
       } else {
         console.error("Failed to create PDF Blob");
       }
+      setVideoDownloaded(true);
       setLoading(false);
     } catch (error) {
       console.error(error);
