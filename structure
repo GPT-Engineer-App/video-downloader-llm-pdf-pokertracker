@@ -1,0 +1,8 @@
+backend/
+├── app.py
+├── requirements.txt
+└── utils/
+    ├── video_processing.py
+    ├── llm_interaction.py
+    ├── pdf_generation.py
+    └── database.py

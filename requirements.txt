@@ -1,0 +1,8 @@
+flask
+pytube
+opencv-python
+openai
+reportlab
+sqlite3
+matplotlib
+seaborn
