@@ -10,6 +10,11 @@ function Navigation() {
             Home
           </Button>
         </Link>
+        <Link to="/frames">
+          <Button colorScheme="teal" variant="ghost">
+            Frames
+          </Button>
+        </Link>
       </Flex>
     </Box>
   );
