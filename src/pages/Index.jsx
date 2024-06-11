@@ -19,10 +19,17 @@ const Index = () => {
       const videoPath = response.data.video_path;
       setVideoPath(videoPath);
       const framesResponse = await axios.post("/extract_frames", { video_path: videoPath, interval: 1 });
-      const frames = framesResponse.data.frames;
-      const analysisResponse = await axios.post("/analyze_frames", { frames });
-      const analysis = analysisResponse.data.analysis;
-      const pdfResponse = await axios.post("/create_pdf", { analysis }, { responseType: "blob" });
+      const frames = framesResponse.data.frames.map((frame) => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const img = new Image();
+        img.src = `data:image/jpeg;base64,${frame}`;
+        canvas.width = 512;
+        canvas.height = 512;
+        ctx.drawImage(img, 0, 0, 512, 512);
+        return canvas.toDataURL("image/jpeg");
+      });
+      const pdfResponse = await axios.post("/create_pdf", { frames }, { responseType: "blob" });
       if (pdfResponse.data) {
         const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
         const pdfUrl = URL.createObjectURL(pdfBlob);
@@ -51,10 +58,17 @@ const Index = () => {
     setLoading(true);
     try {
       const framesResponse = await axios.post("/extract_frames", { video_path: videoPath, interval: 1 });
-      const frames = framesResponse.data.frames;
-      const analysisResponse = await axios.post("/analyze_frames", { frames });
-      const analysis = analysisResponse.data.analysis;
-      const pdfResponse = await axios.post("/create_pdf", { analysis }, { responseType: "blob" });
+      const frames = framesResponse.data.frames.map((frame) => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const img = new Image();
+        img.src = `data:image/jpeg;base64,${frame}`;
+        canvas.width = 512;
+        canvas.height = 512;
+        ctx.drawImage(img, 0, 0, 512, 512);
+        return canvas.toDataURL("image/jpeg");
+      });
+      const pdfResponse = await axios.post("/create_pdf", { frames }, { responseType: "blob" });
       if (pdfResponse.data) {
         const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
         const pdfUrl = URL.createObjectURL(pdfBlob);
