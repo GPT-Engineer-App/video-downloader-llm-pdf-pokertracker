@@ -24,9 +24,13 @@ const Index = () => {
       const analysisResponse = await axios.post("/analyze_frames", { frames });
       const analysis = analysisResponse.data.analysis;
       const pdfResponse = await axios.post("/create_pdf", { analysis }, { responseType: "blob" });
-      const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
-      const pdfUrl = URL.createObjectURL(pdfBlob);
-      setPdfUrl(pdfUrl);
+      if (pdfResponse.data) {
+        const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
+        const pdfUrl = URL.createObjectURL(pdfBlob);
+        setPdfUrl(pdfUrl);
+      } else {
+        console.error("Failed to create PDF Blob");
+      }
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -51,10 +55,14 @@ const Index = () => {
       const analysisResponse = await axios.post("/analyze_frames", { frames });
       const analysis = analysisResponse.data.analysis;
       const pdfResponse = await axios.post("/create_pdf", { analysis }, { responseType: "blob" });
-      const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
-      const pdfUrl = URL.createObjectURL(pdfBlob);
-      setPdfUrl(pdfUrl);
-      setFramesExtracted(true);
+      if (pdfResponse.data) {
+        const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
+        const pdfUrl = URL.createObjectURL(pdfBlob);
+        setPdfUrl(pdfUrl);
+        setFramesExtracted(true);
+      } else {
+        console.error("Failed to create PDF Blob");
+      }
       setLoading(false);
     } catch (error) {
       console.error(error);
