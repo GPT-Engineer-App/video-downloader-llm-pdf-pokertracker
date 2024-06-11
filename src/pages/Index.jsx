@@ -53,11 +53,15 @@ const Index = () => {
             Download PDF Storybook
           </a>
         )}
+        <Text fontSize="lg">Enter Player ID to fetch stats:</Text>
         <Input placeholder="Enter Player ID" onBlur={(e) => handleGetStats(e.target.value)} />
         {stats && (
           <VStack spacing={2}>
             <Text>Player Stats:</Text>
-            <Text>{stats}</Text>
+            <Text>Games Played: {stats.gamesPlayed}</Text>
+            <Text>Wins: {stats.wins}</Text>
+            <Text>Losses: {stats.losses}</Text>
+            <Text>Win Rate: {stats.winRate}%</Text>
           </VStack>
         )}
       </VStack>
