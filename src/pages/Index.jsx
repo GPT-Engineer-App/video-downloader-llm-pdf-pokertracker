@@ -79,10 +79,13 @@ const Index = () => {
         <Button onClick={handleDownloadVideo} isLoading={loading} isDisabled={videoDownloaded}>
           Download Video
         </Button>
-        {videoDownloaded && (
-          <Button onClick={handleExtractFrames} isLoading={loading} isDisabled={framesExtracted}>
-            Process Frames
-          </Button>
+        {videoDownloaded && videoPath && (
+          <>
+            <Text>Video downloaded to: {videoPath}</Text>
+            <Button onClick={handleExtractFrames} isLoading={loading} isDisabled={framesExtracted}>
+              Process Frames
+            </Button>
+          </>
         )}
         {loading && <Spinner />}
         {pdfUrl && (
